@@ -23,7 +23,7 @@ public class Registro extends javax.swing.JFrame {
     static File fichero = new File("REGISTRO.txt");
     static DefaultTableModel md;
     String data[][] = {};
-    String Detalles[] = {"placa", "marca", "tipo", "modelo", "anio", "color", "pasajeros", "gas", "motor"};
+    String Detalles[] = {"Placa", "Marca", "Tipo", "Modelo", "Año", "Color", "Pasajeros", "Gas/Dies", "Motor", "ESTADO"};
     static ArrayList<carro> arregloCliente;
     static ArrayList<carro> arreglo;
     
@@ -69,18 +69,18 @@ public class Registro extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         IDREGISTRO = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
+        jcGPS = new javax.swing.JCheckBox();
+        jcCANASTA = new javax.swing.JCheckBox();
+        jcRADIO = new javax.swing.JCheckBox();
+        jcBOTON = new javax.swing.JCheckBox();
+        jcRACKS = new javax.swing.JCheckBox();
+        jcALARMA = new javax.swing.JCheckBox();
         btnOrdenAlq = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         btnRegistrar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jComboPasajeros1 = new javax.swing.JComboBox<>();
+        jComboESTADO = new javax.swing.JComboBox<>();
         btnVerRegistro1 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
 
@@ -179,23 +179,23 @@ public class Registro extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel13.setText("EXTRAS DEL VEHICULO");
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox1.setText("GPS");
+        jcGPS.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcGPS.setText("GPS");
 
-        jCheckBox2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox2.setText("CANASTA");
+        jcCANASTA.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcCANASTA.setText("CANASTA");
 
-        jCheckBox3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox3.setText("RADIO DE PANTALLA");
+        jcRADIO.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcRADIO.setText("RADIO DE PANTALLA");
 
-        jCheckBox4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox4.setText("ARRANQUE CON BOTON ");
+        jcBOTON.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcBOTON.setText("ARRANQUE CON BOTON ");
 
-        jCheckBox5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox5.setText("RACKS");
+        jcRACKS.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcRACKS.setText("RACKS");
 
-        jCheckBox6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox6.setText("ALARMA");
+        jcALARMA.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcALARMA.setText("ALARMA");
 
         btnOrdenAlq.setBackground(new java.awt.Color(102, 102, 255));
         btnOrdenAlq.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -216,6 +216,18 @@ public class Registro extends javax.swing.JFrame {
             }
         ));
         tabla.setColumnSelectionAllowed(true);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
+        tabla.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tablaInputMethodTextChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
         tabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -232,10 +244,10 @@ public class Registro extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("ESTADO DEL VEHICULO");
 
-        jComboPasajeros1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE UNA OPCION", "DISPONIBLE", "ALQUILADO", "EN REPARACION", "FUERA DE CIRCULACION", " " }));
-        jComboPasajeros1.addActionListener(new java.awt.event.ActionListener() {
+        jComboESTADO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE UNA OPCION", "DISPONIBLE", "ALQUILADO", "EN REPARACION", "FUERA DE CIRCULACION", " " }));
+        jComboESTADO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboPasajeros1ActionPerformed(evt);
+                jComboESTADOActionPerformed(evt);
             }
         });
 
@@ -320,30 +332,29 @@ public class Registro extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(261, 261, 261)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jCheckBox3)
-                                                    .addComponent(jCheckBox4))
+                                                    .addComponent(jcRADIO)
+                                                    .addComponent(jcBOTON))
                                                 .addGap(21, 21, 21)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jCheckBox2)
-                                                    .addComponent(jCheckBox6)))
+                                                    .addComponent(jcCANASTA)
+                                                    .addComponent(jcALARMA)))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel14)
                                                 .addGap(26, 26, 26)
-                                                .addComponent(jComboPasajeros1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jComboESTADO, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(160, 160, 160)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jCheckBox1)
+                                                .addComponent(jcGPS)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel13)
                                                 .addGap(195, 195, 195))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jCheckBox5)
+                                                .addComponent(jcRACKS)
                                                 .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(61, 61, 61))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -403,15 +414,15 @@ public class Registro extends javax.swing.JFrame {
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jCheckBox3)
-                                    .addComponent(jCheckBox2))))
+                                    .addComponent(jcRADIO)
+                                    .addComponent(jcCANASTA))))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jComboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox6))
+                            .addComponent(jcRACKS)
+                            .addComponent(jcBOTON)
+                            .addComponent(jcALARMA))
                         .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -421,10 +432,10 @@ public class Registro extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel14)
-                                .addComponent(jComboPasajeros1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jComboESTADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(62, 62, 62)
-                            .addComponent(jCheckBox1)
+                            .addComponent(jcGPS)
                             .addGap(109, 109, 109))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -474,13 +485,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboAñoActionPerformed
 
     private void btnVerRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistroActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        VerRegistro Registro = new VerRegistro();
-        // Método setVisible para mostrar formulario
-        Registro.setVisible(true);
-        // Declaración para ocultar formulario:
-
+     JOptionPane.showInputDialog("Ingrese el numero de placa que para editar campo");
 
     }//GEN-LAST:event_btnVerRegistroActionPerformed
 
@@ -492,6 +497,10 @@ public class Registro extends javax.swing.JFrame {
         Registro.setVisible(true);
         // Declaración para ocultar formulario:
 
+        JOptionPane.showInputDialog("Ingrese placa del vehiculo deseado para continuar con la orden", null);
+     
+        
+        
     }//GEN-LAST:event_btnOrdenAlqActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -506,7 +515,8 @@ public class Registro extends javax.swing.JFrame {
                 String pasajeros = (String) jComboPasajeros.getSelectedItem();
                 String gas = (String) jComboGAS.getSelectedItem();
                 String motor = (String) jComboMotor.getSelectedItem();
-                String 
+                String estado = (String) jComboESTADO.getSelectedItem();
+
                 
 
                 if (this.txtPlaca.getText().equals("")) {
@@ -525,9 +535,11 @@ public class Registro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Informacion Incompleta");
                 } else if (this.jComboAño.getSelectedItem().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+                } else if (this.jComboESTADO.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
 
                 } else {
-                    Object datos[] = {placa, marca, tipo, modelo, anio, color, pasajeros, gas, motor};
+                    Object datos[] = {placa, marca, tipo, modelo, anio, color, pasajeros, gas, motor, estado};
                     md.addRow(datos);
                     {
                 JOptionPane.showMessageDialog(null, "Informacion guardada satisfactoriamente");
@@ -570,13 +582,25 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboMotorActionPerformed
 
-    private void jComboPasajeros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboPasajeros1ActionPerformed
+    private void jComboESTADOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboESTADOActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboPasajeros1ActionPerformed
+    }//GEN-LAST:event_jComboESTADOActionPerformed
 
     private void btnVerRegistro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistro1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVerRegistro1ActionPerformed
+
+    private void tablaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tablaInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaInputMethodTextChanged
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        // TODO add your handling code here:
+      //esto es para que cuando uno seleccine la tabla 
+        int select = tabla.rowAtPoint(evt.getPoint());
+        
+        
+    }//GEN-LAST:event_tablaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -620,20 +644,14 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVerRegistro;
     private javax.swing.JButton btnVerRegistro1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JComboBox<String> jComboAño;
     private javax.swing.JComboBox<String> jComboColor;
+    private javax.swing.JComboBox<String> jComboESTADO;
     private javax.swing.JComboBox<String> jComboGAS;
     private javax.swing.JComboBox<String> jComboMarca;
     private javax.swing.JComboBox<String> jComboModelo;
     private javax.swing.JComboBox<String> jComboMotor;
     private javax.swing.JComboBox<String> jComboPasajeros;
-    private javax.swing.JComboBox<String> jComboPasajeros1;
     private javax.swing.JComboBox<String> jComboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -652,6 +670,12 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox jcALARMA;
+    private javax.swing.JCheckBox jcBOTON;
+    private javax.swing.JCheckBox jcCANASTA;
+    private javax.swing.JCheckBox jcGPS;
+    private javax.swing.JCheckBox jcRACKS;
+    private javax.swing.JCheckBox jcRADIO;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables

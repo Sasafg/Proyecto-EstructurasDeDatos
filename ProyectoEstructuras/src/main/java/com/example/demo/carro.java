@@ -16,9 +16,16 @@ public class carro {
     private int pasajeros;
     private String gas;
     private int motor;
-    private int 
+   
+    //estras del carro
+    private String alarma;
+    private String canasta;
+    private String racks;
+    private String radio;
+    private String boton;
+    private String gps;
 
-    public carro(String placa, String marca, String tipo, String modelo, int anio, String color, String costo, int pasajeros, String gas, int motor) {
+    public carro(String placa, String marca, String tipo, String modelo, int anio, String color, String costo, int pasajeros, String gas, int motor, String alarma, String canasta, String racks, String radio, String boton, String gps) {
         this.placa = placa;
         this.marca = marca;
         this.tipo = tipo;
@@ -29,6 +36,12 @@ public class carro {
         this.pasajeros = pasajeros;
         this.gas = gas;
         this.motor = motor;
+        this.alarma = alarma;
+        this.canasta = canasta;
+        this.racks = racks;
+        this.radio = radio;
+        this.boton = boton;
+        this.gps = gps;
     }
 
     public String getPlaca() {
@@ -111,11 +124,60 @@ public class carro {
         this.motor = motor;
     }
 
-    @Override
-    public String toString() {
-        return "carro{" + "placa=" + placa + ", marca=" + marca + ", tipo=" + tipo + ", modelo=" + modelo + ", anio=" + anio + ", color=" + color + ", costo=" + costo + ", pasajeros=" + pasajeros + ", gas=" + gas + ", motor=" + motor + '}';
+    public String getAlarma() {
+        return alarma;
     }
 
-   
+    public void setAlarma(String alarma) {
+        this.alarma = alarma;
+    }
 
-}
+    public String getCanasta() {
+        return canasta;
+    }
+
+    public void setCanasta(String canasta) {
+        this.canasta = canasta;
+    }
+
+    public String getRacks() {
+        return racks;
+    }
+
+    public void setRacks(String racks) {
+        this.racks = racks;
+    }
+
+    public String getRadio() {
+        return radio;
+    }
+
+    public void setRadio(String radio) {
+        this.radio = radio;
+    }
+
+    public String getBoton() {
+        return boton;
+    }
+
+    public void setBoton(String boton) {
+        this.boton = boton;
+    }
+
+    public String getGps() {
+        return gps;
+    }
+
+    public void setGps(String gps) {
+        this.gps = gps;
+    }
+
+    @Override
+    public String toString() {
+        return "carro{" + "placa=" + placa + ", marca=" + marca + ", tipo=" + tipo + ", modelo=" + modelo + ", anio=" + anio + ", color=" + color + ", costo=" + costo + ", pasajeros=" + pasajeros + ", gas=" + gas + ", motor=" + motor + ", alarma=" + alarma + ", canasta=" + canasta + ", racks=" + racks + ", radio=" + radio + ", boton=" + boton + ", gps=" + gps + '}';
+    }
+    
+
+    
+        
+    }
