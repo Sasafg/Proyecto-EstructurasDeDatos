@@ -8,6 +8,7 @@ public class node<T> {
 
     private T value;
     private node<T> next;
+    private node<T> back;
 
     public node() {
 
@@ -31,6 +32,14 @@ public class node<T> {
 
     public void setNext(node<T> next) {
         this.next = next;
+    }
+
+    public node<T> getBack() {
+        return back;
+    }
+
+    public void setBack(node<T> back) {
+        this.back = back;
     }
 
 }
