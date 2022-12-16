@@ -283,12 +283,10 @@ public class registrarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarRegistroActionPerformed
 
     private void btnOrdenAlqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenAlqActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        //Orden Registro = new Orden();
-        // Método setVisible para mostrar formulario
-        //Registro.setVisible(true);
-        // Declaración para ocultar formulario:
+      
+        Orden Registro = new Orden();
+      Registro.setVisible(true);
+
     }//GEN-LAST:event_btnOrdenAlqActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed

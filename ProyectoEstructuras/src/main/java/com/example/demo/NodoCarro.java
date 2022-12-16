@@ -12,9 +12,9 @@ public class NodoCarro {
       private carro dato;  
     private NodoCarro next;  
 
-    public NodoCarro(carro dato, NodoCarro next) {
+    public NodoCarro(carro dato) {
         this.dato = dato;
-        this.next = next;
+    
     }
 
     public carro getDato() {

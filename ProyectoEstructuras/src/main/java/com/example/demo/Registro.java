@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.example.demo;
 
 import static com.example.demo.Orden.md;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,12 +12,18 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
 
 /**
  *
  * @author Saryf
  */
 public class Registro extends javax.swing.JFrame {
+    ListaCarro lc = new ListaCarro();
     //estoy creando un fichero txt para poder guardar el registro del carro y posteriormente mostrarlo en otra seccion 
     static File fichero = new File("REGISTRO.txt");
     static DefaultTableModel md;
@@ -26,7 +31,8 @@ public class Registro extends javax.swing.JFrame {
     String Detalles[] = {"Placa", "Marca", "Tipo", "Modelo", "Año", "Color", "Pasajeros", "Gas/Dies", "Motor", "ESTADO"};
     static ArrayList<carro> arregloCliente;
     static ArrayList<carro> arreglo;
-    
+    private TableRowSorter buscar;
+    String filtro;
 
     public Registro() {
         initComponents();
@@ -34,7 +40,10 @@ public class Registro extends javax.swing.JFrame {
         md = new DefaultTableModel(data, Detalles);
         tabla.setModel(md);
     }
-
+    public Registro(ListaCarro liCa) {
+        this.lc= liCa;
+        initComponents();
+      }  
  
         /**
      * Reestablece los valores en las cajas de texto mostradas al usuario
@@ -55,6 +64,8 @@ public class Registro extends javax.swing.JFrame {
         
         
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,9 +106,10 @@ public class Registro extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jComboESTADO = new javax.swing.JComboBox<>();
-        btnVerRegistro1 = new javax.swing.JButton();
+        btnBuscarPl = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         btnInfo = new javax.swing.JButton();
+        CCLIENTE = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +130,11 @@ public class Registro extends javax.swing.JFrame {
         txtPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlacaActionPerformed(evt);
+            }
+        });
+        txtPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPlacaKeyTyped(evt);
             }
         });
 
@@ -261,13 +278,13 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        btnVerRegistro1.setBackground(new java.awt.Color(204, 204, 255));
-        btnVerRegistro1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnVerRegistro1.setText("BUSCAR POR PLACA");
-        btnVerRegistro1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnVerRegistro1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarPl.setBackground(new java.awt.Color(204, 204, 255));
+        btnBuscarPl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscarPl.setText("BUSCAR POR PLACA");
+        btnBuscarPl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnBuscarPl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerRegistro1ActionPerformed(evt);
+                btnBuscarPlActionPerformed(evt);
             }
         });
 
@@ -276,11 +293,21 @@ public class Registro extends javax.swing.JFrame {
 
         btnInfo.setBackground(new java.awt.Color(204, 204, 255));
         btnInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnInfo.setText("VER INFORMACION DE VEHICULO");
+        btnInfo.setText("INFO DEl VEHICULO");
         btnInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInfoActionPerformed(evt);
+            }
+        });
+
+        CCLIENTE.setBackground(new java.awt.Color(102, 102, 255));
+        CCLIENTE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        CCLIENTE.setText("CREAR CLIENTE");
+        CCLIENTE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        CCLIENTE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CCLIENTEActionPerformed(evt);
             }
         });
 
@@ -291,48 +318,39 @@ public class Registro extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(39, 39, 39)
-                                        .addComponent(jLabel2))
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboColor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(109, 109, 109)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboColor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboAño, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addGap(54, 54, 54)
-                                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(186, 186, 186))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnVerRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(btnVerRegistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19)))
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboAño, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(54, 54, 54)
+                                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(186, 186, 186)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
@@ -371,18 +389,22 @@ public class Registro extends javax.swing.JFrame {
                                 .addComponent(jLabel14))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jComboESTADO, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(93, 93, 93)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(93, 93, 93))))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(btnOrdenAlq, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVerRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarPl, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOrdenAlq, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CCLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,11 +416,12 @@ public class Registro extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVerRegistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarPl, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnOrdenAlq, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVerRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CCLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(63, 63, 63))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -545,9 +568,9 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOrdenAlqActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-      
+              
         
-    
+       
 
       
       
@@ -593,9 +616,7 @@ public class Registro extends javax.swing.JFrame {
                }
                     
                }
-               
-    
-      
+
        
             
         
@@ -609,23 +630,22 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboESTADOActionPerformed
 
-    private void btnVerRegistro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistro1ActionPerformed
+    private void btnBuscarPlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPlActionPerformed
         // TODO add your handling code here:
+      
+       txtPlaca.addKeyListener(new KeyAdapter(){
         
-       String plc =  JOptionPane.showInputDialog("Por favor, ingrese la placa del vehículo!");
-           
-        if (!txtPlaca.getText().equals(plc)) {
-            JOptionPane.showMessageDialog(rootPane, "VEHICULO NO REGISTRADO EN EL SISTEMA");
+             public void KeyReleased(final KeyEvent e){
+            String cadena = txtPlaca.getText();
+            txtPlaca.setText(cadena);
+            repaint();
+            filtro();
+           } 
+        });
+    
         
-          
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"El vehiculo placa  :"+ plc+ "Marca  :"+jComboMarca.getSelectedItem()
-                    +"\n"+"Modelo  :"+ "Año  :"+jComboAño.getSelectedItem()+"\n"+"Se encuetra registrado en njustro sistema correctamente!");
-          
-        }
-         limpiar(); 
-    }//GEN-LAST:event_btnVerRegistro1ActionPerformed
+         limpiar();
+    }//GEN-LAST:event_btnBuscarPlActionPerformed
 
     private void tablaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tablaInputMethodTextChanged
         // TODO add your handling code here:
@@ -667,6 +687,40 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPlacaActionPerformed
 
+    private void CCLIENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCLIENTEActionPerformed
+        // TODO add your handling code here:
+         registrarClientes Registro = new registrarClientes();
+        // Método setVisible para mostrar formulario
+        Registro.setVisible(true);
+        
+    }//GEN-LAST:event_CCLIENTEActionPerformed
+
+    private void txtPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyTyped
+        // TODO add your handling code here:
+        buscar = new TableRowSorter(tabla.getModel());
+        tabla.setRowSorter(buscar);
+        
+    
+   
+    }//GEN-LAST:event_txtPlacaKeyTyped
+ public void filtro(){
+        filtro = txtPlaca.getText();
+        buscar.setRowFilter(RowFilter.regexFilter(txtPlaca.getText(), 0));
+        }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     /**
      * @param args the command line arguments
      */
@@ -704,11 +758,12 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CCLIENTE;
+    private javax.swing.JButton btnBuscarPl;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnOrdenAlq;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVerRegistro;
-    private javax.swing.JButton btnVerRegistro1;
     private javax.swing.JComboBox<String> jComboAño;
     private javax.swing.JComboBox<String> jComboColor;
     private javax.swing.JComboBox<String> jComboESTADO;
