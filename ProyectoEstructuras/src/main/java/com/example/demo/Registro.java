@@ -1,4 +1,3 @@
-
 package com.example.demo;
 
 import static com.example.demo.Orden.md;
@@ -23,6 +22,7 @@ import javax.swing.RowSorter;
  * @author Saryf
  */
 public class Registro extends javax.swing.JFrame {
+
     ListaCarro lc = new ListaCarro();
     //estoy creando un fichero txt para poder guardar el registro del carro y posteriormente mostrarlo en otra seccion 
     static File fichero = new File("REGISTRO.txt");
@@ -40,12 +40,13 @@ public class Registro extends javax.swing.JFrame {
         md = new DefaultTableModel(data, Detalles);
         tabla.setModel(md);
     }
+
     public Registro(ListaCarro liCa) {
-        this.lc= liCa;
+        this.lc = liCa;
         initComponents();
-      }  
- 
-        /**
+    }
+
+    /**
      * Reestablece los valores en las cajas de texto mostradas al usuario
      */
     public void limpiar() {
@@ -61,11 +62,8 @@ public class Registro extends javax.swing.JFrame {
         this.jComboAño.setSelectedIndex(0);
         this.jComboColor.setSelectedIndex(0);
         this.jComboESTADO.setSelectedIndex(0);
-        
-        
+
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -513,36 +511,35 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboAñoActionPerformed
 
     private void btnVerRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistroActionPerformed
-     JOptionPane.showMessageDialog(null,"Seleccione en la tabla, la fila que deseas editar!");
-    
-     int select = tabla.getRowCount();
-     if(select!=0){
-         int seleccion=tabla.getSelectedRow();
-      String pl= tabla.getValueAt(seleccion, 0).toString();
-      String tip= tabla.getValueAt(seleccion, 1).toString();
-      String gas= tabla.getValueAt(seleccion, 2).toString();
-      String mrc= tabla.getValueAt(seleccion, 3).toString();
-      String mod= tabla.getValueAt(seleccion, 4).toString();
-      String mot= tabla.getValueAt(seleccion, 5).toString();
-      String psj= tabla.getValueAt(seleccion, 6).toString();
-      String tp= tabla.getValueAt(seleccion, 7).toString();
-      String ann= tabla.getValueAt(seleccion, 8).toString();
-      String cl= tabla.getValueAt(seleccion, 9).toString();
-      String est= tabla.getValueAt(seleccion, 10).toString();
-      
-      
-              txtPlaca.setText(pl);
-        jComboTipo.setSelectedItem(tip);
-        jComboGAS.setSelectedItem(gas);
-        jComboMarca.setSelectedItem(mrc);
-        jComboModelo.setSelectedItem(mod);
-        jComboMotor.setSelectedItem(mot);
-        jComboPasajeros.setSelectedItem(psj);
-        jComboTipo.setSelectedItem(tp);
-        jComboAño.setSelectedItem(ann);
-        jComboColor.setSelectedItem(cl);
-        jComboESTADO.setSelectedItem(est);
-     }
+        JOptionPane.showMessageDialog(null, "Seleccione en la tabla, la fila que deseas editar!");
+
+        int select = tabla.getRowCount();
+        if (select != 0) {
+            int seleccion = tabla.getSelectedRow();
+            String pl = tabla.getValueAt(seleccion, 0).toString();
+            String tip = tabla.getValueAt(seleccion, 1).toString();
+            String gas = tabla.getValueAt(seleccion, 2).toString();
+            String mrc = tabla.getValueAt(seleccion, 3).toString();
+            String mod = tabla.getValueAt(seleccion, 4).toString();
+            String mot = tabla.getValueAt(seleccion, 5).toString();
+            String psj = tabla.getValueAt(seleccion, 6).toString();
+            String tp = tabla.getValueAt(seleccion, 7).toString();
+            String ann = tabla.getValueAt(seleccion, 8).toString();
+            String cl = tabla.getValueAt(seleccion, 9).toString();
+            String est = tabla.getValueAt(seleccion, 10).toString();
+
+            txtPlaca.setText(pl);
+            jComboTipo.setSelectedItem(tip);
+            jComboGAS.setSelectedItem(gas);
+            jComboMarca.setSelectedItem(mrc);
+            jComboModelo.setSelectedItem(mod);
+            jComboMotor.setSelectedItem(mot);
+            jComboPasajeros.setSelectedItem(psj);
+            jComboTipo.setSelectedItem(tp);
+            jComboAño.setSelectedItem(ann);
+            jComboColor.setSelectedItem(cl);
+            jComboESTADO.setSelectedItem(est);
+        }
     }//GEN-LAST:event_btnVerRegistroActionPerformed
 
     private void btnOrdenAlqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenAlqActionPerformed
@@ -554,72 +551,60 @@ public class Registro extends javax.swing.JFrame {
         // Declaración para ocultar formulario:
 
         String estado = JOptionPane.showInputDialog("Ingrese placa del vehiculo deseado para continuar con la orden");
-        
+
         if (!txtPlaca.getText().equals(estado)) {
             JOptionPane.showMessageDialog(rootPane, "VEHICULO NO REGISTRADO EN EL SISTEMA");
-        
-          
-            
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "El estado del vehículo es:"+jComboESTADO.getSelectedItem());
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El estado del vehículo es:" + jComboESTADO.getSelectedItem());
         }
-        
-        
+
+
     }//GEN-LAST:event_btnOrdenAlqActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-              
-        
-       
 
-      
-      
-                String placa = txtPlaca.getText();
-                String marca = (String) jComboMarca.getSelectedItem();
-                String tipo = (String) jComboTipo.getSelectedItem();
-                String modelo = (String) jComboModelo.getSelectedItem();
-                String anio = (String) jComboAño.getSelectedItem();
-                String color = (String) jComboColor.getSelectedItem();
-                String pasajeros = (String) jComboPasajeros.getSelectedItem();
-                String gas = (String) jComboGAS.getSelectedItem();
-                String motor = (String) jComboMotor.getSelectedItem();
-                String estado = (String) jComboESTADO.getSelectedItem();
+        String placa = txtPlaca.getText();
+        String marca = (String) jComboMarca.getSelectedItem();
+        String tipo = (String) jComboTipo.getSelectedItem();
+        String modelo = (String) jComboModelo.getSelectedItem();
+        String anio = (String) jComboAño.getSelectedItem();
+        String color = (String) jComboColor.getSelectedItem();
+        String pasajeros = (String) jComboPasajeros.getSelectedItem();
+        String gas = (String) jComboGAS.getSelectedItem();
+        String motor = (String) jComboMotor.getSelectedItem();
+        String estado = (String) jComboESTADO.getSelectedItem();
 
-                
+        if (this.txtPlaca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboMarca.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboTipo.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboModelo.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboAño.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboColor.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboPasajeros.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboAño.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
+        } else if (this.jComboESTADO.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informacion Incompleta");
 
-                if (this.txtPlaca.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboMarca.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboTipo.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboModelo.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboAño.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboColor.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboPasajeros.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboAño.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-                } else if (this.jComboESTADO.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informacion Incompleta");
-
-                } else {
-                    Object datos[] = {placa, marca, tipo, modelo, anio, color, pasajeros, gas, motor, estado};
-                    md.addRow(datos);
-                    {
+        } else {
+            Object datos[] = {placa, marca, tipo, modelo, anio, color, pasajeros, gas, motor, estado};
+            md.addRow(datos);
+            {
                 JOptionPane.showMessageDialog(null, "Informacion guardada satisfactoriamente");
-               
-               
-               }
-                    
-               }
 
-       
-            
-        
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jComboMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboMotorActionPerformed
@@ -632,19 +617,18 @@ public class Registro extends javax.swing.JFrame {
 
     private void btnBuscarPlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPlActionPerformed
         // TODO add your handling code here:
-      
-       txtPlaca.addKeyListener(new KeyAdapter(){
-        
-             public void KeyReleased(final KeyEvent e){
-            String cadena = txtPlaca.getText();
-            txtPlaca.setText(cadena);
-            repaint();
-            filtro();
-           } 
+
+        txtPlaca.addKeyListener(new KeyAdapter() {
+
+            public void KeyReleased(final KeyEvent e) {
+                String cadena = txtPlaca.getText();
+                txtPlaca.setText(cadena);
+                repaint();
+                filtro();
+            }
         });
-    
-        
-         limpiar();
+
+        limpiar();
     }//GEN-LAST:event_btnBuscarPlActionPerformed
 
     private void tablaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tablaInputMethodTextChanged
@@ -653,34 +637,32 @@ public class Registro extends javax.swing.JFrame {
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         // TODO add your handling code here:
-      //esto es para que cuando uno seleccine la tabla 
+        //esto es para que cuando uno seleccine la tabla 
         int select = tabla.rowAtPoint(evt.getPoint());
-        
-        
+
+
     }//GEN-LAST:event_tablaMouseClicked
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         // TODO add your handling code here:
         String estado = JOptionPane.showInputDialog("Ingrese placa del vehiculo para ver su informacion");
-        
+
         if (!txtPlaca.getText().equals(estado)) {
             JOptionPane.showMessageDialog(rootPane, "VEHICULO NO REGISTRADO EN EL SISTEMA");
-        
-          
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"Informacion del vehiculo:"+
-                    jComboMarca.getSelectedItem()+"\n"+
-                    jComboTipo.getSelectedItem()+"\n"+
-                    jComboModelo.getSelectedItem()+"\n"+
-                    jComboAño.getSelectedItem()+"\n"+
-                    jComboColor.getSelectedItem()+"\n"+
-                    jComboPasajeros.getSelectedItem()+"\n"+
-                    jComboGAS.getSelectedItem()+"\n"+
-                    jComboMotor.getSelectedItem()+"\n"+
-                    jComboESTADO.getSelectedItem()+"\n");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Informacion del vehiculo:"
+                    + jComboMarca.getSelectedItem() + "\n"
+                    + jComboTipo.getSelectedItem() + "\n"
+                    + jComboModelo.getSelectedItem() + "\n"
+                    + jComboAño.getSelectedItem() + "\n"
+                    + jComboColor.getSelectedItem() + "\n"
+                    + jComboPasajeros.getSelectedItem() + "\n"
+                    + jComboGAS.getSelectedItem() + "\n"
+                    + jComboMotor.getSelectedItem() + "\n"
+                    + jComboESTADO.getSelectedItem() + "\n");
         }
-         limpiar(); 
+        limpiar();
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
@@ -689,38 +671,26 @@ public class Registro extends javax.swing.JFrame {
 
     private void CCLIENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCLIENTEActionPerformed
         // TODO add your handling code here:
-         registrarClientes Registro = new registrarClientes();
+        registrarClientes Registro = new registrarClientes();
         // Método setVisible para mostrar formulario
+        Registro.setTitle("Registro de clientes");
+        Registro.setLocationRelativeTo(null);
         Registro.setVisible(true);
-        
+
     }//GEN-LAST:event_CCLIENTEActionPerformed
 
     private void txtPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyTyped
         // TODO add your handling code here:
         buscar = new TableRowSorter(tabla.getModel());
         tabla.setRowSorter(buscar);
-        
-    
-   
+
+
     }//GEN-LAST:event_txtPlacaKeyTyped
- public void filtro(){
+    public void filtro() {
         filtro = txtPlaca.getText();
         buscar.setRowFilter(RowFilter.regexFilter(txtPlaca.getText(), 0));
-        }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    }
+
     /**
      * @param args the command line arguments
      */

@@ -24,7 +24,6 @@ public class modificacionCliente extends javax.swing.JFrame {
     }
 
     private modificacionCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -242,7 +241,7 @@ public class modificacionCliente extends javax.swing.JFrame {
     }
 
     private void cerrarVentana() {
-        registrarClientes ventanaRegistro = new registrarClientes(this.lista);
+        registrarClientes ventanaRegistro = new registrarClientes();
             ventanaRegistro.setTitle("Registro clientes");
             ventanaRegistro.setLocationRelativeTo(null);
             ventanaRegistro.setVisible(true);

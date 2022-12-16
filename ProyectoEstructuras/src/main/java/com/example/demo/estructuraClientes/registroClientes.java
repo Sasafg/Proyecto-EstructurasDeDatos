@@ -11,6 +11,11 @@ public class registroClientes {
     private node<Cliente> head;
     private node<Cliente> info;
     private node<Cliente> tail;
+    private int conteo;
+
+    public int getConteo() {
+        return conteo;
+    }
 
     public void registrar(Cliente value) {
         node<Cliente> nuevoNodo = new node<>(value);
@@ -49,6 +54,7 @@ public class registroClientes {
             aux.getNext().getNext().setBack(nuevoNodo);
             nuevoNodo.setBack(aux);
         }
+        conteo++;
     }
 
     public void mostrarRegistros() {
@@ -64,6 +70,22 @@ public class registroClientes {
                         + aux.getValue().getNombre());*/
                 aux = aux.getNext();
                 info = aux;
+            } while (aux != head);
+            //System.out.println("\n");
+        }
+    }
+    
+    public void imprimirRegistros() {
+
+        if (head == null) {
+            //System.out.println("\nNo hay clientes registrados.");
+
+        } else {
+            node<Cliente> aux = head;
+
+            do {
+                info = aux;
+                aux = aux.getNext();
             } while (aux != head);
             //System.out.println("\n");
         }
@@ -112,7 +134,6 @@ public class registroClientes {
             if (head.getValue().getCedula() == cedula_buscada && head.getNext() != head) { //Si el valor está al inicio pero hay más elementos
                 node<Cliente> aux = head.getNext();
                 //System.out.println("\nDatos eliminados: " + head.getNext().getValue().toString() + "\n");
-                aux = aux.getNext();
                 aux.setBack(tail);
                 tail.setNext(aux);
                 head = aux;
